@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.notforgotto_do">
+
+    <application
+
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NotForgotTodo"
+        android:fullBackupContent="">
+
+        <activity android:label = "Splash Activity"
+            android:name=".SplashActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:label="LogIn"
+            android:name=".LogInActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK_ACTIVITY"/>
+                <category android:name="android.intent.category.OPENABLE"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:label="Registration"
+            android:name=".RegistrationActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK_ACTIVITY"/>
+                <category android:name="android.intent.category.OPENABLE"/>
+            </intent-filter>
+        </activity>
+
+
+        <activity android:label="Not Forgot"
+            android:name=".EmptyMainActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK_ACTIVITY"/>
+                <category android:name="android.intent.category.OPENABLE"/>
+            </intent-filter>
+        </activity>
+
+
+
+        <activity android:label="Not Forgot"
+            android:name=".MainActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK_ACTIVITY"/>
+                <category android:name="android.intent.category.OPENABLE"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
