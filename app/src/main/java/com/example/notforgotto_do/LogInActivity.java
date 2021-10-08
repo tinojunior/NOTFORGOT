@@ -71,9 +71,11 @@ public class LogInActivity extends AppCompatActivity {
 
             if(TextUtils.isEmpty(password))
             {
+                //fields have to be filled
                 mPassword.setError("Password cannot be empty");
                 return;
             }
+            //checking the minimum length the password should be, basic check
             if(password.length() < 6)
             {
                 mPassword.setError("Password must contain at least 6 characters");

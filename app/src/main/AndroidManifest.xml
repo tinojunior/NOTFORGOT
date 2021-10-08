@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NotForgotTodo"
-        android:fullBackupContent="">
+        android:fullBackupContent="true">
 
         <activity android:label = "Splash Activity"
             android:name=".SplashActivity"
