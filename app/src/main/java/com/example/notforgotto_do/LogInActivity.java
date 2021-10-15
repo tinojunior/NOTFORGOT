@@ -19,11 +19,11 @@ import java.util.Objects;
 public class LogInActivity extends AppCompatActivity {
 
 
-    EditText mEmail;
+     EditText mEmail;
      EditText mPassword;
      Button mLoginBtn;
      Button mCreateBtn;
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+     FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
 
 
@@ -44,14 +44,16 @@ public class LogInActivity extends AppCompatActivity {
 
         if(FirstTime.equals("Yes")) // this is if its opened first time
         {
-            Intent intent = new Intent(LogInActivity.this, LogInActivity.class); // or , EmptyActivity
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("FirstTimeInstall", "Yes");
+            editor.apply();
+            Intent intent = new Intent(LogInActivity.this, LogInActivity.class);
             startActivity(intent);
         }
         else // if not otherwise.
         {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("FirstTimeInstall", "Yes");
-            editor.apply();
+            Intent intent = new Intent(LogInActivity.this, MainActivity.class); // or , EmptyActivity
+            startActivity(intent);
         }
 
 

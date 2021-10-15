@@ -45,10 +45,20 @@
         </activity>
 
 
-        <activity android:label="Not Forgot"
+        <activity
             android:name=".EmptyMainActivity"
             android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK_ACTIVITY"/>
+                <category android:name="android.intent.category.OPENABLE"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".AddNewTaskActivity"
+            android:exported="true"
+            tools:ignore="Instantiatable,IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PICK_ACTIVITY"/>
                 <category android:name="android.intent.category.OPENABLE"/>

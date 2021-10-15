@@ -45,18 +45,19 @@ AddNewTaskActivity extends BottomSheetDialogFragment implements DatePickerDialog
     public Spinner categorySpnr;
     public  Spinner prioritySpinner;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(STYLE_NORMAL, R.style.DialogStyle);
+
+    }
+
 
     //functions
     public static AddNewTaskActivity newInstance()
     {
         return new AddNewTaskActivity();
 
-    }
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setStyle(STYLE_NORMAL, R.style.DialogStyle);
     }
 
 

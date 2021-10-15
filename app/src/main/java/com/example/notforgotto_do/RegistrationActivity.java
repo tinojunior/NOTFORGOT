@@ -37,20 +37,20 @@ public class RegistrationActivity extends AppCompatActivity  {
         SharedPreferences preferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE);
         String FirstTime = preferences.getString("FirstTimeInstall", "");
 
-        if (FirstTime.equals("Yes")) // this is if its opened first time
-        {
-            Intent intent = new Intent(RegistrationActivity.this, EmptyMainActivity.class);
-            startActivity(intent);
-
-        } else // if not otherwise.
+        if (FirstTime.equals("Yes")) // this is if its opened first time stay on the reg
         {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("FirstTimeInstall", "Yes");
             editor.apply();
 
+
+        } else // if not otherwise. it means user already logged in
+        {
+            Intent intent = new Intent(RegistrationActivity.this, EmptyMainActivity.class);
+            startActivity(intent);
         }
 
-
+        //now calling the xml id of all featured usages
         mFullName = findViewById(R.id.fullName);
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
