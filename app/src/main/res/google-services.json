@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184803808651",
+    "project_id": "not-forgot-todo",
+    "storage_bucket": "not-forgot-todo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184803808651:android:2d8916c619c4f9e9dc0b8e",
+        "android_client_info": {
+          "package_name": "com.example.notforgotto_do"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184803808651-rfe79v5p1tfl7vpcda27nn3i7a394ngm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHU2KYJ4_UIWwPsOOb2patfXwWSvQUonM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184803808651-rfe79v5p1tfl7vpcda27nn3i7a394ngm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

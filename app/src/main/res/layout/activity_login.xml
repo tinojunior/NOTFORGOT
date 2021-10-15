@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contextClickable="true">
+    android:contextClickable="true"
+    android:id="@+id/activity_login"
+    tools:targetApi="m">
 
 
     <include
@@ -26,7 +28,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.313"/>
+        app:layout_constraintVertical_bias="0.313"
+        tools:ignore="HardcodedText,TextFields" />
 
     <EditText
         android:id="@+id/passwordLog"
@@ -40,7 +43,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailLog" />
+        app:layout_constraintTop_toBottomOf="@+id/emailLog"
+        tools:ignore="HardcodedText,TextFields" />
 
 
     <Button
@@ -62,7 +66,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navToRegText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="m"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/navToRegText"

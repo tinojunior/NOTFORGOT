@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="LogIn"
+        <activity
             android:name=".LogInActivity"
             android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="Registration"
+        <activity
             android:name=".RegistrationActivity"
             android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">

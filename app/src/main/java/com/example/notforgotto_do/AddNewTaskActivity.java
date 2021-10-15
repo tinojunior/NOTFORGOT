@@ -73,7 +73,7 @@ AddNewTaskActivity extends BottomSheetDialogFragment implements DatePickerDialog
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        newTaskText = Objects.requireNonNull(getView()).findViewById(R.id.new_task_text);
+        newTaskText = requireView().findViewById(R.id.new_task_text);
         newTaskSaveButton = getView().findViewById(R.id.new_task_btn);
 
 
@@ -82,7 +82,7 @@ AddNewTaskActivity extends BottomSheetDialogFragment implements DatePickerDialog
         calendarView = getView().findViewById(R.id.smallcalendaricon);
         calendarView.setOnClickListener(v -> {
             DialogFragment datePicker = new DatePickerFragment();
-            datePicker.show(Objects.requireNonNull(getFragmentManager()), "date picker");
+            datePicker.show(requireFragmentManager(), "date picker");
 
         });
         //Category spinner
@@ -110,7 +110,7 @@ AddNewTaskActivity extends BottomSheetDialogFragment implements DatePickerDialog
             String task = bundle.getString("task");
             newTaskText.setText(task);
             if(task.length()>0)
-                newTaskSaveButton.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.colorAccent));
+                newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorAccent));
         }
         newTaskText.addTextChangedListener(new TextWatcher()
         {
@@ -131,7 +131,7 @@ AddNewTaskActivity extends BottomSheetDialogFragment implements DatePickerDialog
                 else
                 {
                     newTaskSaveButton.setEnabled(true);
-                    newTaskSaveButton.setTextColor((ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.colorAccent)));
+                    newTaskSaveButton.setTextColor((ContextCompat.getColor(requireContext(),R.color.colorAccent)));
                 }
 
             }
@@ -179,7 +179,7 @@ AddNewTaskActivity extends BottomSheetDialogFragment implements DatePickerDialog
         c.set(Calendar.MONTH, month);
 
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        calendarTxt = Objects.requireNonNull(getView()).findViewById(R.id.dateselected);
+        calendarTxt = requireView().findViewById(R.id.dateselected);
         calendarTxt.setText(currentDateString);
 
 

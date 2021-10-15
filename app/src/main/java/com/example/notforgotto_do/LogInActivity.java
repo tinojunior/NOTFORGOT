@@ -16,13 +16,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 
-
 public class LogInActivity extends AppCompatActivity {
 
-    public EditText mEmail = findViewById(R.id.emailLog);
-    public EditText mPassword = findViewById(R.id.passwordLog);
-    public Button mLoginBtn = findViewById(R.id.buttonLog);
-    public Button mCreateBtn = findViewById(R.id.navToRegText);
+
+    EditText mEmail;
+     EditText mPassword;
+     Button mLoginBtn;
+     Button mCreateBtn;
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
 
@@ -32,6 +32,10 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        mEmail = findViewById(R.id.emailLog);
+        mPassword = findViewById(R.id.passwordLog);
+        mLoginBtn = findViewById(R.id.buttonLog);
+        mCreateBtn = findViewById(R.id.navToRegText);
 
 
 //Here below we are checking if the application is opened for the first time .
