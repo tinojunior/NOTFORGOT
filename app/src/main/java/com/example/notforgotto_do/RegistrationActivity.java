@@ -69,7 +69,7 @@ public class RegistrationActivity extends AppCompatActivity  {
         //Already registered user already go straight to home activity
         if (fAuth.getCurrentUser() != null)
         {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), EmptyMainActivity.class));
             finish();
         }
 

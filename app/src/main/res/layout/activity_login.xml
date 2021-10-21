@@ -8,6 +8,13 @@
     android:contextClickable="true"
     tools:targetApi="m">
 
+    <include
+
+        android:id="@+id/toolbar_log"
+        layout="@layout/toolbar_log"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="-13dp" />
+
 
     <Button
         android:id="@+id/buttonLog"
@@ -19,24 +26,27 @@
         android:contextClickable="true"
         android:padding="15dp"
         android:text="LOGIN"
+        android:clickable="true"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLog"
         tools:ignore="HardcodedText"
-        tools:targetApi="m" />
+        tools:targetApi="m"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/navToRegText"
         android:layout_width="364dp"
         android:layout_height="24dp"
         android:layout_marginTop="56dp"
-
+        android:clickable="true"
         android:background="@drawable/refreg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLog" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLog"
+        android:focusable="true" />
 
     <EditText
         android:id="@+id/emailLog"
@@ -46,6 +56,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Email"
+        android:clickable="true"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +64,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.313"
-        tools:ignore="HardcodedText,TextFields" />
+        tools:ignore="HardcodedText,TextFields"
+        android:focusable="true" />
 
 
     <EditText
@@ -64,12 +76,14 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:clickable="true"
         android:hint="Password"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailLog"
-        tools:ignore="HardcodedText,TextFields" />
+        tools:ignore="HardcodedText,TextFields"
+        android:focusable="true" />
 
     <include
         android:id="@+id/toolbar"

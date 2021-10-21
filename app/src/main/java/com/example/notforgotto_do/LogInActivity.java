@@ -44,6 +44,7 @@ public class LogInActivity extends AppCompatActivity {
 
         if(FirstTime.equals("Yes")) // this is if its opened first time
         {
+            //after login the user should be taken to the main empty activity if its their first time
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("FirstTimeInstall", "Yes");
             editor.apply();
@@ -52,6 +53,7 @@ public class LogInActivity extends AppCompatActivity {
         }
         else // if not otherwise.
         {
+            //if its not their first time after successful login the user should be taken to the main activity
             Intent intent = new Intent(LogInActivity.this, MainActivity.class); // or , EmptyActivity
             startActivity(intent);
         }
@@ -63,7 +65,6 @@ public class LogInActivity extends AppCompatActivity {
 
         //Navigation back to the LogIn Screen
         mCreateBtn.setOnClickListener(v -> startActivity(new Intent(LogInActivity.this, RegistrationActivity.class)));
-
 
         //The LogIn Button Functionality
         mLoginBtn.setOnClickListener(v -> {
