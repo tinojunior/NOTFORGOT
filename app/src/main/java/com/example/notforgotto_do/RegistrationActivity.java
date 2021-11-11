@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ public class RegistrationActivity extends AppCompatActivity  {
 
     EditText mFullName,mEmail,mPassword,mPasswordRepeat;
     Button mRegistrationBtn;
-    Button mLoginBtn;
+    TextView mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
 
