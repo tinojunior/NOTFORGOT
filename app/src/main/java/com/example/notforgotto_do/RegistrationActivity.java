@@ -1,6 +1,7 @@
 package com.example.notforgotto_do;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -11,12 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -44,13 +41,16 @@ public class RegistrationActivity extends AppCompatActivity  implements  View.On
         mPassword = findViewById(R.id.password);
         mPasswordRepeat = findViewById(R.id.repeatPassword);
         mRegistrationBtn = findViewById(R.id.buttonReg);
-        mLoginBtn = findViewById(R.id.navToLogText);
 
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
+        mLoginBtn = findViewById(R.id.navToLogText);
+        mLoginBtn.setOnClickListener(this);
+
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v)
     {
@@ -119,19 +119,15 @@ public class RegistrationActivity extends AppCompatActivity  implements  View.On
 
         progressBar.setVisibility(View.VISIBLE);
         fAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful())
 
-                        {
-                            User user = new User(email,password);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
+                    {
+                        User user = new User(email,password);
+                        FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(task1 -> {
+                                    if(task1.isSuccessful())
                                     {
 
                                         Toast.makeText(RegistrationActivity.this, "User Created Successfully", Toast.LENGTH_SHORT).show();
@@ -140,12 +136,10 @@ public class RegistrationActivity extends AppCompatActivity  implements  View.On
                                     }
 
                                     else {
-                                        Toast.makeText(RegistrationActivity.this, "Error!,Registration Failed" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegistrationActivity.this, "Error!,Registration Failed" + Objects.requireNonNull(task1.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                            });
+                                });
 
-                        }
                     }
                 });
 

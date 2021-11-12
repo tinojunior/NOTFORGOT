@@ -1,6 +1,5 @@
 package com.example.notforgotto_do;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -39,10 +38,15 @@ public class LogInActivity extends AppCompatActivity implements  View.OnClickLis
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
         mLoginBtn = findViewById(R.id.buttonLog);
+
+
         mCreateBtn = findViewById(R.id.navToRegText);
+        mCreateBtn.setOnClickListener(this);
+
+
+
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v)
     {
