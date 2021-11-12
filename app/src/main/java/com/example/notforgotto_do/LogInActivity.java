@@ -51,7 +51,7 @@ public class LogInActivity extends AppCompatActivity implements  View.OnClickLis
         {
 
             case R.id.navToRegText:
-                //Navigation back to the LogIn Screen
+                //Navigation back to the Registration Screen
                 startActivity(new Intent(LogInActivity.this, RegistrationActivity.class));
                 break;
             case R.id.buttonLog:

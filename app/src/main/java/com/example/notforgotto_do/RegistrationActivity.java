@@ -2,9 +2,8 @@ package com.example.notforgotto_do;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,20 +11,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class RegistrationActivity extends AppCompatActivity  {
+public class RegistrationActivity extends AppCompatActivity  implements  View.OnClickListener
+{
 
-    EditText mFullName,mEmail,mPassword,mPasswordRepeat;
+    EditText mFullName, mEmail, mPassword, mPasswordRepeat;
     Button mRegistrationBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
-
 
 
     @Override
@@ -33,23 +37,6 @@ public class RegistrationActivity extends AppCompatActivity  {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
-        //Here below we are checking if the application is opened for the first time .
-        SharedPreferences preferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE);
-        String FirstTime = preferences.getString("FirstTimeInstall", "");
-
-        if (FirstTime.equals("Yes")) // this is if its opened first time stay on the reg
-        {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("FirstTimeInstall", "Yes");
-            editor.apply();
-
-
-        } else // if not otherwise. it means user already logged in
-        {
-            Intent intent = new Intent(RegistrationActivity.this, EmptyMainActivity.class);
-            startActivity(intent);
-        }
 
         //now calling the xml id of all featured usages
         mFullName = findViewById(R.id.fullName);
@@ -62,77 +49,106 @@ public class RegistrationActivity extends AppCompatActivity  {
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
+    }
 
-        //Opening the LogIn Screen if this button is clicked navigated at the last part of code
-        mLoginBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), LogInActivity.class)));
-
-
-        //Already registered user already go straight to home activity
-        if (fAuth.getCurrentUser() != null)
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
         {
-            startActivity(new Intent(getApplicationContext(), EmptyMainActivity.class));
-            finish();
+            case R.id.navToLogText:
+                //Navigation back to the Registration Screen
+                startActivity(new Intent(RegistrationActivity.this, LogInActivity.class));
+                break;
+            case R.id.buttonReg:
+                loginUser();
+                break;
         }
 
-
-        mRegistrationBtn.setOnClickListener(v -> {
-
-            String email = mEmail.getText().toString().trim();
-            String password = mPassword.getText().toString().trim();
-            String passwordRepeat = mPasswordRepeat.getText().toString().trim();
-
-            if (TextUtils.isEmpty(email))
-            {
-                mEmail.setError("Email is required");
-                return;
-            }
-
-            if (TextUtils.isEmpty(password))
-            {
-
-                mPassword.setError("Password cannot be empty");
-                return;
-            }
-            if (password.length() < 6)
-            {
-                mPassword.setError("Password must contain at least 6 characters");
-
-            }
-            if (passwordRepeat.equals(password))
-            {
-                mPasswordRepeat.setError("The password does not match!");
-            }
-
-
-
-            progressBar.setVisibility(View.VISIBLE);
-
-            //Register the user now in firebase.
-
-            fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if (task.isSuccessful())
-                {
-                    Toast.makeText(RegistrationActivity.this, "User Created", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), EmptyMainActivity.class));
-
-                }
-                else
-                {
-                    Toast.makeText(RegistrationActivity.this, "Error!,Registration Failed" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-            });
-
-
-        });
-
-
     }
-    //Navigation to open LogIn Activity
-    public  void openLogInActivity()
+
+    private void loginUser()
+
     {
-        Intent intent = new Intent(this, LogInActivity.class);
-        startActivity(intent);
+        String email = mEmail.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
+        String fullname = mFullName.getText().toString().trim();
+        String repeatPassword = mPasswordRepeat.getText().toString().trim();
+
+        if(fullname.isEmpty())
+        {
+            mFullName.setError("Please Enter Your Name");
+            mFullName.requestFocus();
+            return;
+        }
+
+        if(email.isEmpty())
+        {
+            mEmail.setError("Please Enter Your Email");
+            mEmail.requestFocus();
+            return;
+        }
+
+        //Check if password is filled
+
+        if(password.isEmpty())
+        {
+            mPassword.setError("Please Enter Your Password");
+            mEmail.requestFocus();
+            return;
+        }
+        //checking the minimum length the password should be, basic check
+        if(password.length()  < 6)
+        {
+            mPassword.setError("Your Password Is Shorter than 6 characters");
+            mEmail.requestFocus();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        {
+            mEmail.setError("Please provide valid email");
+            mEmail.requestFocus();
+            return;
+        }
+        if(!repeatPassword.equals(password))
+        {
+            mPasswordRepeat.setError("Please Provide Matching Passwords");
+            mPasswordRepeat.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        fAuth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+
+                        {
+                            User user = new User(email,password);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {
+
+                                        Toast.makeText(RegistrationActivity.this, "User Created Successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(),EmptyMainActivity.class));
+
+                                    }
+
+                                    else {
+                                        Toast.makeText(RegistrationActivity.this, "Error!,Registration Failed" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                });
+
     }
 
 }
